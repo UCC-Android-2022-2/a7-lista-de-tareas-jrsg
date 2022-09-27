@@ -3,6 +3,9 @@ package com.example.listatareas
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,6 +28,15 @@ class MainActivity : AppCompatActivity() {
         fabNuevaTarea.setOnClickListener{
             nuevaTarea()
         }
+
+        lvTareas.setOnItemClickListener{ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+            val tarea = adapter.getItem(i)
+
+            val intent = Intent(this, EditarTareaActivity::class.java)
+
+            intent.putExtra("tarea", tarea)
+            startActivityForResult(intent, 2)
+        }
     }
 
     private fun nuevaTarea() {
@@ -44,6 +56,13 @@ class MainActivity : AppCompatActivity() {
                     adapter.add(tarea)
                 }
 
+            }
+        }
+
+        if(requestCode == 2 && resultCode == RESULT_OK){
+            if(data != null) {
+                var tarea = data.getStringExtra("tarea")
+                adapter.insert(tarea, 0)
 
             }
         }

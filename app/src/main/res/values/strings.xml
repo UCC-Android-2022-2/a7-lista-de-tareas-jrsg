@@ -2,4 +2,5 @@
     <string name="app_name">Lista Tareas</string>
     <string name="nueva_tarea">Nueva tarea</string>
     <string name="escriba_tarea" translatable="false">Escriba una tarea</string>
+    <string name="modificar_tarea">Modificar tarea</string>
 </resources>
