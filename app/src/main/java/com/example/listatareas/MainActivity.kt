@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, EditarTareaActivity::class.java)
 
             intent.putExtra("tarea", tarea)
-            startActivityForResult(intent, 2)
+            startActivityForResult(intent, 2) //modificar y eliminar
         }
     }
 
@@ -61,12 +61,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if(requestCode == 2 && resultCode == RESULT_OK){ //editar tarea
+        if(requestCode == 2 && resultCode == RESULT_OK){ //editar o eliminar tarea
             if(data != null) {
-                var tarea = data.getStringExtra("tarea")
 
-                adapter.remove(original)
-                adapter.add(tarea)
+                if(data.hasExtra("eliminar")){
+                    adapter.remove(original)
+                }else {
+                    var tarea = data.getStringExtra("tarea")
+
+                    adapter.remove(original)
+                    adapter.add(tarea)
+                }
             }
         }
     }

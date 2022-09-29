@@ -50,7 +50,11 @@ class EditarTareaActivity : AppCompatActivity() {
     }
 
     private fun eliminar() {
-        TODO("Not yet implemented")
+        val intent = Intent()
+        intent.putExtra("eliminar", true)
+
+        setResult(RESULT_OK, intent)
+        finish()
     }
 
     private fun guardar() {
