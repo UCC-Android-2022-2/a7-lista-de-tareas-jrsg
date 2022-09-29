@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter : ArrayAdapter<String>
+    private var original = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         lvTareas.setOnItemClickListener{ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
             val tarea = adapter.getItem(i)
+
+            original = tarea.toString()
 
             val intent = Intent(this, EditarTareaActivity::class.java)
 
@@ -55,15 +58,15 @@ class MainActivity : AppCompatActivity() {
                     var tarea = data.getStringExtra("tarea")
                     adapter.add(tarea)
                 }
-
             }
         }
 
-        if(requestCode == 2 && resultCode == RESULT_OK){
+        if(requestCode == 2 && resultCode == RESULT_OK){ //editar tarea
             if(data != null) {
                 var tarea = data.getStringExtra("tarea")
-                adapter.insert(tarea, 0)
 
+                adapter.remove(original)
+                adapter.add(tarea)
             }
         }
     }
